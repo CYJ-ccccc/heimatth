@@ -1,4 +1,4 @@
-<template>
+<template comments>
   <div class="main" ref="main">
     <!-- 头部搜索框区域 -->
     <van-search shape="round" background="#4fc08d" placeholder="请输入搜索关键词" @click="openSearch" />
@@ -44,7 +44,7 @@
 </template>
 <script>
 // 导入   获取频道          获取文章           对文章不感兴趣的方法
-import { getChannelsApi, getActicleApi, dislikeArtApi } from '../../api/index'
+import { getOneClassApi, getChannelsApi, getActicleApi, dislikeArtApi } from '../../api/index'
 // 导入频道弹出组件
 import Channel from './components/channel'
 // 导入更多操作组件
@@ -69,7 +69,9 @@ export default {
       // 当前点击更多操作的作者id
       authorId: 0,
       // 不喜欢文章的id
-      dislikeId: 0
+      dislikeId: 0,
+      // 是否保存html注释
+      comments: true
     }
   },
   components: {
@@ -197,17 +199,20 @@ export default {
     // 打开搜索框页面
     openSearch () {
       this.$router.push('/search')
+    },
+    async getOneClass () {
+      try {
+        var res = await getOneClassApi()
+        window.console.log(res)
+      } catch (error) {
+        window.console.log(error)
+      }
     }
   },
   created () {
     this.getChannel()
     // 得到list列表的高度
-  },
-  mounted () {
-    // var listHeight = this.footerTop - 94
-    var obj = this.$refs.vanList
-    window.console.log(obj)
-    // obj.style.height = listHeight
+    this.getOneClass()
   }
 }
 </script>

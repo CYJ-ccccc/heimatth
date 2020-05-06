@@ -1,11 +1,21 @@
 // 封装所有跟主页相关的网络请求
 // 导入封装好的axios实例
 import instance from '../utils/httpToken'
+import instance1 from '../utils/http'
 // 封装获取用户频道区域的网络请求
 export function getChannelsApi (params) {
   return instance({
     params,
     url: 'user/channels'
+  })
+}
+export function getOneClassApi (params) {
+  return instance1({
+    params,
+    url: 'http://192.168.188.200:5005/h5/nottoken/getSwipers',
+    headers: {
+      ContentType: 'X-WWW-FORM-URLENCODED'
+    }
   })
 }
 // 封装获取全部频道区域的网络请求
